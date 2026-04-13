@@ -1,5 +1,22 @@
 import mmap # ler e editar arquivos pesados como se fossem leves, e garantir uma velocidade bem rapida nesse processo
 import time
+import os
+
+LOG = "respostas.log"
+
+def aguardar_resposta(comando, timeout=3.0):
+    inicio = time.time()
+    while time.time() - inicio < timeout:
+        time.sleep(0.15)
+        try:
+            with open(LOG, 'r') as f:
+                linhas = f.readlines()
+            for linha in reversed(linhas):
+                if linha.startswith(comando + " /") or linha.startswith(comando + "/"):
+                    return linha.split("Resposta:", 1)[1].strip()
+        except FileNotFoundError:
+            pass
+    return "(sem resposta — timeout)"
 
 def iniciar_cliente():
     try:
@@ -11,8 +28,13 @@ def iniciar_cliente():
         print("Erro: Precisa iniciar o servidor primeiro")
         return
 
-    print("\n Conectado.\n Comandos disponiveis atualmente: INSERT e SELECT \n Ex: INSERT 1, Lucas \n Digite 'sair' para fechar.")
-    
+    print("\n Conectado.\n Comandos disponiveis: INSERT, SELECT, DELETE, UPDATE")
+    print(" Ex: INSERT 1, Lucas")
+    print(" Ex: SELECT WHERE id=1")
+    print(" Ex: DELETE WHERE id=1")
+    print(" Ex: UPDATE id=1 Lucas Atualizado")
+    print(" Digite 'sair' para fechar.")
+
     while True:
         comando = input("\nSQL> ")
         if comando.lower() == 'sair':
@@ -27,11 +49,12 @@ def iniciar_cliente():
         # escreve o comando novo
         comando_bytes = comando.encode('utf-8')
         memoria[1:] = comando_bytes.ljust(1023, b'\x00') # justifica a esquerda e preenche o espaço restante com zero, pra nao dar conflito de lixo de memoria
-        
+
         # Muda a posição de 0 para 1 (avisando o servidor q já pode ler)
         memoria[0] = 1
-        
-        print("Enviado! Só olhar o arquivo respostas.log")
+
+        resposta = aguardar_resposta(comando)
+        print(f"Resposta: {resposta}")
 
 if __name__ == "__main__":
     iniciar_cliente()
