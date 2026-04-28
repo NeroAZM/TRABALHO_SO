@@ -32,6 +32,11 @@ def executar_query(comando):
             linhas = _ler_linhas()
             if not linhas:
                 return "Banco vazio."
+            
+            if len(partes) == 1 or partes[1].strip() == "*":
+                # .strip() remove espaços/quebras extras
+                return "\n".join(l.strip() for l in linhas)
+            
             # Filtro opcional: SELECT WHERE id=X
             if len(partes) > 1 and partes[1].upper().startswith("WHERE"):
                 criterio = partes[1].split("=", 1)
