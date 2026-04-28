@@ -1,4 +1,4 @@
-import threading
+import threading # Mutex para controle de concorrência
 
 # Mutex para controle de concorrência na leitura e escrita
 trava_bd = threading.Lock()
