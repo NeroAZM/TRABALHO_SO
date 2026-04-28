@@ -1,17 +1,19 @@
 import mmap # ler e editar arquivos pesados como se fossem leves, e garantir uma velocidade bem rapida nesse processo
 import time
-import threading # multiprocessamento, recebe varias requisições e lida ocm elas em paralelo
+import threading
 import banco # controle de concorrencias na leitura e escrita, além de ter a lógica dos comandos sql
 from concurrent.futures import ThreadPoolExecutor
+trava_log = threading.Lock() # Mutex dedicado ao arquivo de log
 
 TAMANHO_POOL = 4
 
 def processar(comando):
     # O banco já tem o Mutex protegendo o .txt
     resposta = banco.executar_query(comando)
-    # Salva a resposta no log
-    with open("respostas.log", "a") as f:
-        f.write(f"{comando} / Resposta: {resposta}\n")
+    # Salva a resposta no log (protegido por mutex para evitar condição de corrida)
+    with trava_log:
+        with open("respostas.log", "a") as f:
+            f.write(f"{comando} / Resposta: {resposta}\n")
     print(f"Processado: {comando}")
 
 def iniciar_servidor():

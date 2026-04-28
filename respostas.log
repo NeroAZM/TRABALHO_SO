@@ -4,3 +4,30 @@ SELECT / Resposta: 1, TESTEEEEE, TESTEA
 1, VINI
 2, NILSON
 
+SELECT / Resposta: 1, LUCAS
+2, NELSON BANGUELA
+
+INSERT 6, Vinicius / Resposta: Insert realizado
+SELECT / Resposta: 1, LUCAS
+2, NELSON BANGUELA
+6, Vinicius
+
+SELECT WHERE ID=6 / Resposta: 6, Vinicius
+
+INSERT 4, GABRIEL / Resposta: Insert realizado
+INSERT 4, GABRIEL / Resposta: Insert realizado
+SELECT FROM / Resposta: 1, LUCAS
+2, NELSON BANGUELA
+6, Vinicius
+4, GABRIEL
+4, GABRIEL
+
+SELECT / Resposta: 1, LUCAS
+2, NELSON BANGUELA
+6, Vinicius
+4, GABRIEL
+4, GABRIEL
+
+SELECT WHERE ID=4 / Resposta: 4, GABRIEL
+4, GABRIEL
+
