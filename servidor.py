@@ -1,8 +1,8 @@
 import mmap # ler e editar arquivos pesados como se fossem leves, e garantir uma velocidade bem rapida nesse processo
-import time
-import threading
+import time # manipulação de tempo -- usado principalmente para sleeps
+import threading # Mutex para controle de concorrência
 import banco # controle de concorrencias na leitura e escrita, além de ter a lógica dos comandos sql
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor # pool de threads para processamento paralelo
 trava_log = threading.Lock() # Mutex dedicado ao arquivo de log
 
 TAMANHO_POOL = 4
