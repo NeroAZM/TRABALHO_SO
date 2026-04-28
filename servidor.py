@@ -1,4 +1,4 @@
-import mmap # ler e editar arquivos pesados como se fossem leves, e garantir uma velocidade bem rapida nesse processo
+import mmap # implementação da memória compartilhada
 import time # manipulação de tempo -- usado principalmente para sleeps
 import threading # Mutex para controle de concorrência
 import banco # controle de concorrencias na leitura e escrita, além de ter a lógica dos comandos sql
