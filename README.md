@@ -36,4 +36,4 @@ As respostas ficam salvas no arquivo `respostas.log`. E a execução dos comando
 
 ## Observação
 
-O projeto usa **mmap** com o parâmetro *tagname* para criar a memória compartilhada entre os processos. Esse parâmetro **só existe no Windows** — no Linux e no Mac o **mmap** funciona de forma diferente e não aceita **tagname**. Ou seja, o projeto foi desenvolvido e testado no Windows e não vai rodar em outros sistemas operacionais sem adaptação.
+O projeto usa **mmap** com o parâmetro *tagname* para criar a memória compartilhada entre os processos. Esse parâmetro **só existe no Windows**, no Linux e no Mac o **mmap** funciona de forma diferente e não aceita **tagname**. Ou seja, o projeto foi desenvolvido e testado no Windows e não vai rodar em outros sistemas operacionais sem adaptação.
