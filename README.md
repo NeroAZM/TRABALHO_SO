@@ -30,7 +30,7 @@ SQL> DELETE WHERE id=1
 SQL> sair
 ```
 
-As respostas ficam salvas no arquivo `respostas.log`.
+As respostas ficam salvas no arquivo `respostas.log`. E a execução dos comandos bem-sucedidos ficam salvos no arquivo `banco.txt`.
 
 ---
 
