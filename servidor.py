@@ -13,7 +13,8 @@ def processar(comando):
     # Salva a resposta no log (protegido por mutex para evitar condição de corrida)
     with trava_log:
         with open("respostas.log", "a") as f:
-            f.write(f"{comando} / Resposta: {resposta}\n")
+            resposta_log = resposta.replace('\n', ' | ')
+            f.write(f"{comando} / Resposta: {resposta_log}\n")
     print(f"Processado: {comando}")
 
 def iniciar_servidor():
