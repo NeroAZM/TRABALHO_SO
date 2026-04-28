@@ -1,22 +1,19 @@
-import mmap # ler e editar arquivos pesados como se fossem leves, e garantir uma velocidade bem rapida nesse processo
-import time
-import os
+import mmap # implementação da memória compartilhada
+import time # manipulacao de tempo -- usado principalmente para sleeps
 
 LOG = "respostas.log"
 
-def aguardar_resposta(comando, timeout=3.0):
-    inicio = time.time()
-    while time.time() - inicio < timeout:
-        time.sleep(0.15)
+def aguardar_resposta(comando, tentativas=5):
+    for _ in range(tentativas):
+        time.sleep(0.1)
         try:
-            with open(LOG, 'r') as f:
-                linhas = f.readlines()
-            for linha in reversed(linhas):
-                if linha.startswith(comando + " /") or linha.startswith(comando + "/"):
-                    return linha.split("Resposta:", 1)[1].strip()
+            with open(LOG) as f:
+                for linha in reversed(f.readlines()):
+                    if linha.startswith(f"{comando} /"):
+                        return linha.split("Resposta:", 1)[1].strip().replace(' | ', '\n')
         except FileNotFoundError:
             pass
-    return "(sem resposta — timeout)"
+    return "(sem resposta - timeout)"
 
 def iniciar_cliente():
     try:
